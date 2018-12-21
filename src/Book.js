@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 class Book extends Component {
-   state = { currentShelf: this.props.shelf };
-
-   componentDidMount() {
-      console.log(this.state);
-   }
 
    bookStyle = {
       width: 128,
@@ -13,14 +8,14 @@ class Book extends Component {
       backgroundImage: `url(${this.props.bookCover})`
    };
 
-   handleShelfChange = (event) => {
-      console.log(event.target.value);
-      // this.setState({ currentShelf: event.target.value });
-      // this.setState(prevState => ({ currentShelf: event.target.value }));
-      console.log(this.state);
+   handleShelfChange = event => {
+      let newShelf = event.target.value;
+      this.props.onShelfChange(this.props.book, newShelf);
    }
 
    render() {
+      const { shelf, title, authors } = this.props.book;
+
       return (
          <li>
            <div className="book">
@@ -28,7 +23,7 @@ class Book extends Component {
                <div className="book-cover" style={this.bookStyle}>
                </div>
                <div className="book-shelf-changer">
-                 <select onChange={this.handleShelfChange}>
+                 <select value={shelf} onChange={this.handleShelfChange}>
                    <option value="move" disabled>Move to...</option>
                    <option value="currentlyReading">Currently Reading</option>
                    <option value="wantToRead">Want to Read</option>
@@ -37,12 +32,12 @@ class Book extends Component {
                  </select>
                </div>
              </div>
-             <div className="book-title">{this.props.title}</div>
+             <div className="book-title">{title}</div>
              {/* The code block below maps over the authors array. It makes a div displaying
                 each author of each book. Some books have more than 1 author. The authors array
                 is a property of each book in the books array.
              */}
-             {this.props.authors.map(author => <div key={author} className="book-authors">{author}</div>)}
+               {/*{authors.map(author => <div key={author} className="book-authors">{author}</div>)}*/}
            </div>
          </li>
       );
