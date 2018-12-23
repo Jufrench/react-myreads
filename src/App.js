@@ -24,18 +24,22 @@ class BooksApp extends Component {
                return { books };
             });
          });
+         console.log(this.state.books);
   }
 
    handleShelfChange = (book, newShelf) => {
       BooksAPI.update(book, newShelf)
-         .then((response) => {
-            let bookId = book.id;
-            let newBooks = this.state.books.map(book => (
-               book.id === bookId ? { ...book, shelf: newShelf } : book
-            ));
-            this.setState({
-               books: newBooks
-            });
+         .then(() => {
+            book.shelf = newShelf;
+            /*
+               Return every books from the previous state where each book id doesn't equal
+               the id of the book passed in as a parameter.
+               Then, concat that new book that was passed in onto the end of the "books" array
+            */
+            this.setState(prevState => ({
+               books: prevState.books.filter(b => b.id !== book.id).concat([book])
+            }));
+
          });
    }
 
@@ -46,7 +50,6 @@ class BooksApp extends Component {
             this.setState(() => (
                { searchResults: res }
             ));
-            console.log(this.state.searchResults);
          });
    }
 
@@ -79,7 +82,6 @@ class BooksApp extends Component {
               </div>
             </div>
             <div className="search-books-results">
-               {/* <ol className="books-grid"></ol> */}
                <Shelf books={this.state.searchResults} onShelfChange={this.handleShelfChange} />
             </div>
           </div>

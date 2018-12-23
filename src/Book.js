@@ -15,7 +15,6 @@ class Book extends Component {
 
    render() {
       const { shelf, title, authors } = this.props.book;
-
       return (
          <li>
            <div className="book">
@@ -33,11 +32,7 @@ class Book extends Component {
                </div>
              </div>
              <div className="book-title">{title}</div>
-             {/* The code block below maps over the authors array. It makes a div displaying
-                each author of each book. Some books have more than 1 author. The authors array
-                is a property of each book in the books array.
-             */}
-               {/*{authors.map(author => <div key={author} className="book-authors">{author}</div>)}*/}
+               {this.props.book.hasOwnProperty('authors') ? authors.map(author => <div key={author} className="book-authors">{author}</div>) : <div></div>}
            </div>
          </li>
       );
