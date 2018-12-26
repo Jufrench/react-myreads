@@ -11,14 +11,14 @@ To get started developing right away:
 
 ## Explanation
 
-##### Home Page
+#### Home Page
 * This page displays 3 shelves on the home page
    * Currently Reading
    * Want to Read
    * Read
 * Each book has a button, that when clicked displays dropdown options. The dropdown options allow users to change the book upon which the shelf belongs.
 
-##### Search Page
+#### Search Page
 * This page can be access by clicking on the circular button in the bottom right corner.
 * Users then search for a title, author, or topic
 * To return to the home page, click on the back arrow in the search bar.
