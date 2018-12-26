@@ -20,11 +20,9 @@ class BooksApp extends Component {
       BooksAPI.getAll()
          .then(books => {
             this.setState(() => {
-               console.log(books);
                return { books };
             });
          });
-         console.log(this.state.books);
   }
 
    handleShelfChange = (book, newShelf) => {
@@ -45,12 +43,18 @@ class BooksApp extends Component {
 
    searchBooks = event => {
       let query = event.target.value;
-      BooksAPI.search(query)
-         .then(res => {
-            this.setState(() => (
-               { searchResults: res }
-            ));
-         });
+      if (query !== '') {
+         BooksAPI.search(query)
+            .then(res => {
+               this.setState(() => (
+                  { searchResults: res.filter(book => book.hasOwnProperty('imageLinks')) }
+               ));
+            })
+      } else {
+         this.setState(() => (
+            { searchResults: [] }
+         ));
+      }
    }
 
   render() {
