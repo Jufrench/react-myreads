@@ -16,11 +16,11 @@ To get started developing right away:
    * Currently Reading
    * Want to Read
    * Read
-* Each book has a button, that when clicked displays dropdown options. The dropdown options allow users to change the book upon which the shelf belongs.
+* Each book has a button, that when clicked displays dropdown options. The dropdown options allow users to change the shelf where the book lives.
 
 #### Search Page
-* This page can be access by clicking on the circular button in the bottom right corner.
-* Users then search for a title, author, or topic
+* This page can be access by clicking on the circular button in the bottom right corner of the home page.
+* Users then search for a title, author, or topic by typing in the search bar. The results will be filtered below the search bar when each input value changes.
 * To return to the home page, click on the back arrow in the search bar.
 
 ## Important
