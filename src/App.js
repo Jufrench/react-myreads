@@ -11,19 +11,19 @@ const shelves = {
 };
 
 class BooksApp extends Component {
-  state = {
+   state = {
      books: [],
      searchResults: []
-  }
+   }
 
-  componentDidMount() {
+   componentDidMount() {
       BooksAPI.getAll()
          .then(books => {
             this.setState(() => {
                return { books };
             });
          });
-  }
+   }
 
    handleShelfChange = (book, newShelf) => {
       BooksAPI.update(book, newShelf)
@@ -37,23 +37,32 @@ class BooksApp extends Component {
             this.setState(prevState => ({
                books: prevState.books.filter(b => b.id !== book.id).concat([book])
             }));
-
          });
    }
 
    searchBooks = event => {
       let query = event.target.value;
-      if (query !== '') {
-         BooksAPI.search(query)
-            .then(res => {
-               this.setState(() => (
-                  { searchResults: res.filter(book => book.hasOwnProperty('imageLinks')) }
-               ));
-            })
-      } else {
+      if (query === '') {
          this.setState(() => (
             { searchResults: [] }
          ));
+      } else {
+         BooksAPI.search(query)
+            .then(res => {
+               const books = res.map(searchedBook => {
+                  const myBook = this.state.books.find(book => book.id === searchedBook.id);
+                  if (myBook) {
+                     searchedBook.shelf = myBook.shelf;
+                  } else {
+                     searchedBook.shelf = 'none';
+                  }
+                  return searchedBook;
+               }).filter(book => book.hasOwnProperty('imageLinks'));
+
+               this.setState(() => (
+                  { searchResults: books }
+               ));
+            })
       }
    }
 
@@ -86,7 +95,8 @@ class BooksApp extends Component {
               </div>
             </div>
             <div className="search-books-results">
-               <Shelf books={this.state.searchResults} onShelfChange={this.handleShelfChange} />
+               <Shelf onShelfChange={this.handleShelfChange}
+               books={this.state.searchResults} />
             </div>
           </div>
          )} />
