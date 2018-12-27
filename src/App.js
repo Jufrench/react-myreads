@@ -52,7 +52,7 @@ class BooksApp extends Component {
                const books = res.map(searchedBook => {
                   const myBook = this.state.books.find(book => book.id === searchedBook.id);
                   if (myBook) {
-                     searchedBook.shelf = myBook.shelf;
+                     searchedBook.shelf = myBook.shelf ? myBook.shelf : 'none';
                   } else {
                      searchedBook.shelf = 'none';
                   }
@@ -77,7 +77,7 @@ class BooksApp extends Component {
             <div className="list-books-content">
                {Object.keys(shelves).map(shelf => (
                   <Shelf key={shelf} shelf={shelves[shelf][1]} DOMtitle={shelves[shelf][0]}
-                  books={this.state.books} onShelfChange={this.handleShelfChange} />
+                  books={this.state.books.filter(book => book.shelf === shelf)} onShelfChange={this.handleShelfChange} />
                ))}
             </div>
             <div className="open-search">
