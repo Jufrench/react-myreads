@@ -42,6 +42,8 @@ class BooksApp extends Component {
 
    searchBooks = event => {
       let query = event.target.value;
+      // I chose to use an if/else statement here instead of the
+      // ternary operatory so that the code is easier to read.
       if (query === '') {
          this.setState(() => (
             { searchResults: [] }
@@ -51,11 +53,13 @@ class BooksApp extends Component {
             .then(res => {
                const books = res.map(searchedBook => {
                   const myBook = this.state.books.find(book => book.id === searchedBook.id);
+
                   if (myBook) {
                      searchedBook.shelf = myBook.shelf ? myBook.shelf : 'none';
                   } else {
                      searchedBook.shelf = 'none';
                   }
+
                   return searchedBook;
                }).filter(book => book.hasOwnProperty('imageLinks'));
 
@@ -63,6 +67,11 @@ class BooksApp extends Component {
                   { searchResults: books }
                ));
             })
+            .catch(err => {
+               this.setState(() => (
+                  { searchResults: [] }
+               ))
+            });
       }
    }
 
