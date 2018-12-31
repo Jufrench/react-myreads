@@ -85,8 +85,11 @@ class BooksApp extends Component {
             </div>
             <div className="list-books-content">
                {Object.keys(shelves).map(shelf => (
-                  <Shelf key={shelf} shelf={shelves[shelf][1]} DOMtitle={shelves[shelf][0]}
-                  books={this.state.books.filter(book => book.shelf === shelf)} onShelfChange={this.handleShelfChange} />
+                  <Shelf
+                     key={shelf}
+                     shelf={shelves[shelf][1]}
+                     DOMtitle={shelves[shelf][0]}
+                     books={this.state.books.filter(book => book.shelf === shelf)} onShelfChange={this.handleShelfChange} />
                ))}
             </div>
             <div className="open-search">

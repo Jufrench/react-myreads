@@ -10,7 +10,10 @@ const Shelf = props => {
             :
             <ol className="books-grid">
             {props.books.map(book => (
-               <Book key={book.title} book={book} bookCover={book.imageLinks.thumbnail} onShelfChange={props.onShelfChange} />
+               <Book
+                  key={book.title}
+                  book={book}
+                  bookCover={book.imageLinks.thumbnail} onShelfChange={props.onShelfChange} />
             ))}
             </ol>
          }
